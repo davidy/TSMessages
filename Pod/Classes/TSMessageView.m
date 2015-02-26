@@ -63,7 +63,7 @@ static NSMutableDictionary *_notificationDesign;
 {
     if (!_notificationDesign)
     {
-        NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:TSDesignFileName ofType:@"json"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:TSDesignFileName ofType:@"json"];
         NSData *data = [NSData dataWithContentsOfFile:path];
         NSAssert(data != nil, @"Could not read TSMessages config file from main bundle with name %@.json", TSDesignFileName);
         
@@ -181,7 +181,9 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             // On iOS 7 and above use a blur layer instead (not yet finished)
             _backgroundBlurView = [[TSBlurView alloc] init];
             self.backgroundBlurView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-            self.backgroundBlurView.blurTintColor = [UIColor colorWithHexString:current[@"backgroundColor"]];
+            //self.backgroundBlurView.blurTintColor = [UIColor colorWithHexString:current[@"backgroundColor"]];
+            self.backgroundBlurView.backgroundColor = [UIColor colorWithHexString:current[@"backgroundColor"]];
+            
             [self addSubview:self.backgroundBlurView];
         }
         
